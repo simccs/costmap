@@ -1,8 +1,8 @@
-Landcover	NLCD_Classification	Weight
+FarrayRoLandcover	NLCD_Classification	Weight
 Open_water	11	6
-Snow		12	10
+Snow	12	10
 Barren_land	31	1
-Forest		41	1.25
+Forest	41	1.25
 Shrubland	52	1
 Grassland	71	1
 Pasture	81	1.5
