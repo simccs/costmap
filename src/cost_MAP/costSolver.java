@@ -130,19 +130,10 @@ public class costSolver {
                 //no data using mask
                 int value = (int) nlcdMatrix[i][j];
                 int a = (int) headerInfo.get("NoData");
-                switch(value){
-                    case 11:
-                        tempMatrix[i][j] = Double.parseDouble((String) weights.get(0));
-                        break;
-                    case 12:
-                        
-                        tempMatrix[i][j] = Double.parseDouble((String) weights.get(1));
-                        break;   
-                    case 21:
-                    case 22:
-                    case 23:
-                    case 24: 
-                        if (isSelectedPop != false) {
+                
+                if (nlcdMatrix[i][j] == 21 || nlcdMatrix[i][j] == 22 || nlcdMatrix[i][j] == 23 || nlcdMatrix[i][j] == 24) {
+                    if (isSelectedPop != false) {
+
                         double cellPop = cellPop(headerInfo,popMatrix, i, j);
                         if (cellPop == 0) {
                             tempMatrix[i][j] = 0.75;
@@ -156,11 +147,19 @@ public class costSolver {
                         } else {
                             tempMatrix[i][j] = 5;
 
-                        }}
-                        else{
-                        tempMatrix[i][j] = 5;
                         }
-                    break;
+
+                    } else {
+                        tempMatrix[i][j] = 5;
+                    }
+                }
+                switch(value){
+                    case 11:
+                        tempMatrix[i][j] = Double.parseDouble((String) weights.get(0));
+                        break;
+                    case 12:
+                        tempMatrix[i][j] = Double.parseDouble((String) weights.get(1));
+                        break;    
                     case 31:
                         tempMatrix[i][j] = Double.parseDouble((String) weights.get(2));
                         break;
@@ -242,19 +241,11 @@ public class costSolver {
             for (int j = 0; j < nlcdMatrix[0].length; j++) {
                 //no data using mask
                 int value = (int) nlcdMatrix[i][j];
-//                int a = (int) headerInfo.get("NoData");
-                switch(value){
-                    case 11:
-                        tempMatrix[i][j] = Double.parseDouble((String) weights.get(0));
-                        break;
-                    case 12:
-                        tempMatrix[i][j] = Double.parseDouble((String) weights.get(1));
-                        break; 
-                    case 21:
-                    case 22:
-                    case 23:
-                    case 24: 
-                        if (isSelectedPop != false) {
+                int a = (int) headerInfo.get("NoData");
+                
+                if (nlcdMatrix[i][j] == 21 || nlcdMatrix[i][j] == 22 || nlcdMatrix[i][j] == 23 || nlcdMatrix[i][j] == 24) {
+                    if (isSelectedPop != false) {
+
                         double cellPop = cellPop(headerInfo,popMatrix, i, j);
                         if (cellPop == 0) {
                             tempMatrix[i][j] = 0.75;
@@ -268,11 +259,19 @@ public class costSolver {
                         } else {
                             tempMatrix[i][j] = 5;
 
-                        }}
-                        else{
-                        tempMatrix[i][j] = 5;
                         }
-                    break;
+
+                    } else {
+                        tempMatrix[i][j] = 5;
+                    }
+                }
+                switch(value){
+                    case 11:
+                        tempMatrix[i][j] = Double.parseDouble((String) weights.get(0));
+                        break;
+                    case 12:
+                        tempMatrix[i][j] = Double.parseDouble((String) weights.get(1));
+                        break;    
                     case 31:
                         tempMatrix[i][j] = Double.parseDouble((String) weights.get(2));
                         break;
@@ -310,48 +309,53 @@ public class costSolver {
         for (int i = 0; i < fedMatrix.length; i++) {
 
             for (int j = 0; j < fedMatrix[0].length; j++) {
-                
-                    int value = (int) fedMatrix[i][j];
-//                    int a = (int) headerInfo.get("NoData");
                     
-                    switch(value){
+                    if (fedMatrix[i][j] == (int) headerInfo.get("NoData")) {
+                        tempMatrix[i][j] = -9999;
+                    } //BLM
+                    else if (fedMatrix[i][j] == 1) {
+                        tempMatrix[i][j] = tempMatrix[i][j] * 0.5;
 
-                    case 1:
+                    } //BOR
+                    else if (fedMatrix[i][j] == 2) {
                         tempMatrix[i][j] = tempMatrix[i][j] * 0.5;
-                        break;
-                    
-                    case 2:
-                        tempMatrix[i][j] = tempMatrix[i][j] * 0.5;
-                        break;
-                    case 3: 
-                    
+
+                    } //DOD
+                    else if (fedMatrix[i][j] == 3) {
                         tempMatrix[i][j] = tempMatrix[i][j] * 2;
-                        break;
-                    case 4:
+
+                    } //FS
+                    else if (fedMatrix[i][j] == 4) {
                         tempMatrix[i][j] = tempMatrix[i][j] * 1.5;
-                        break;
-                    case 5:
+
+                    } //FWS
+                    else if (fedMatrix[i][j] == 5) {
                         tempMatrix[i][j] = tempMatrix[i][j] * 2.5;
-                        break;
-                    case 6:
+
+                    } //NPS
+                    else if (fedMatrix[i][j] == 6) {
                         tempMatrix[i][j] = tempMatrix[i][j] * 2;
-                        break;
+                     
 //                        System.out.println(tempMatrix[i][j]);
-                    case 7:
+                    } //Other
+                    else if (fedMatrix[i][j] == 7) {
                         tempMatrix[i][j] = tempMatrix[i][j] * 3;
-                        break;
-                    case 8:
+
+                    } //TVA
+                    else if (fedMatrix[i][j] == 8) {
                         tempMatrix[i][j] = tempMatrix[i][j] * 0.75;
-                        break;
-                    case 9:
+
+                    } //State Parks
+                    else if (fedMatrix[i][j] == 9) {
                         tempMatrix[i][j] = tempMatrix[i][j] * 2;
-                        break;
-                    case 10:
+
+                    } //Reservations
+                    else if (fedMatrix[i][j] == 10) {
                         tempMatrix[i][j] = tempMatrix[i][j] * 50;
-                        break;
-                    
-                    default:
-                        tempMatrix[i][j] = (int) headerInfo.get("NoData");
+
+                    }
+                    else{
+                        tempMatrix[i][j] = -9999;
                     }
                 }
             }
@@ -401,11 +405,9 @@ public class costSolver {
         return (double) (latChange * Math.PI / 180);
     }
     
-    public Dictionary solveDistance(Dictionary headerInfo, double[][] distMult, Dictionary costList, String path, Boolean ASC) throws IOException {
+    public Dictionary solveDistance(Dictionary headerInfo, double[][] distMult, Dictionary costList, String path) throws IOException {
         double[][] nlcdMatrix = getDetails(headerInfo, path);
-        int rows = (int) headerInfo.get("Rows");
-        int cols = (int) headerInfo.get("Columns");
-        double[][] constructionGrid = new double[rows][cols];
+
         int indexNew = 0;
         for (int z = 0; z < nlcdMatrix.length; z++) {
             for (int j = 0; j < nlcdMatrix[0].length; j++) {
@@ -422,21 +424,14 @@ public class costSolver {
                         } else {
                             costs[i] = round((costs[i]) * distMult[i][3], 2);
                         }
-                        constructionGrid[z][j] = calculateAverage(costs); 
-                        
+
                         costList.put(indexNew, costs);
-                        
                     }
 
                 }
             }
         }
-        if(ASC == false){
-            System.out.println("Writing Image files...");
-            writeRaster outRaster = new writeRaster();
-//            writeASC(constructionGrid);
-            outRaster.writeToRaster(constructionGrid);
-        }
+
         return costList;
 
     }
@@ -1072,67 +1067,6 @@ public class costSolver {
         return bd.doubleValue();
     }
     
-    private double calculateAverage(double[] conCost) {
-
-        //Prints the costs
-        List<Double> costs = new ArrayList<>();
-
-        for (int z = 1; z < 9; z++) {
-            if (conCost[z] > 0) {
-                costs.add(round(conCost[z], 2));
-
-            }
-        }
-
-        double sum = 0;
-        if (!costs.isEmpty()) {
-            for (Double mark : costs) {
-                sum += mark;
-            }
-            return sum / costs.size();
-        }
-        return sum;
-    }
-    
-    private void writeASC(double[][] constructionGrid) throws IOException {
-        BufferedWriter constructionASC = new BufferedWriter(new FileWriter("Outputs/construction.asc"));
-        Dictionary headerInfo = getHeader("Datasets/ASCII/landcover.asc");
-//        double[][] cellMatrix = getDetails(headerInfo, "Datasets/ASCII/landcover.asc");
-        constructionASC.write("nCols" + "\t" + headerInfo.get("Columns"));
-        constructionASC.newLine();
-        constructionASC.write("nRows" + "\t" + headerInfo.get("Rows"));
-        constructionASC.newLine();
-        constructionASC.write("xllCorner" + "\t" + headerInfo.get("xllCorner"));
-        constructionASC.newLine();
-        constructionASC.write("yllCorner" + "\t" + headerInfo.get("yllCorner"));
-        constructionASC.newLine();
-        constructionASC.write("cellSize" + "\t" + headerInfo.get("CellSize"));
-        constructionASC.newLine();
-        constructionASC.write("NODATA_value" + "\t" + headerInfo.get("NoData"));
-        constructionASC.newLine();
-        
-//        System.out.println(Arrays.deepToString(constructionGrid).replace("], ", "]\n").replace("[[", "[").replace("]]", "]"));
-        
-        for (int i = 0; i < constructionGrid.length; i++) {
-            for (int j = 0; j < constructionGrid[0].length; j++) {
-                if (j == constructionGrid[0].length - 1) {
-                    constructionASC.newLine();
-                }
-                if (constructionGrid[i][j] <= 0) {
-                    String str = "-9999";
-                    constructionASC.write(str + " ");
-                } else {
-                    String str = Double.toString(round(constructionGrid[i][j], 2));
-
-                    constructionASC.write(str + " ");
-                }
-            }
-
-        }
-        
-
-    }
-    
     
     public void writeTxt(Dictionary costList, Dictionary headerInfo, BufferedWriter outPut) throws IOException {
         
@@ -1155,13 +1089,10 @@ public class costSolver {
         outPut.newLine();
         int rows = (int) headerInfo.get("Rows");
         int cols = (int) headerInfo.get("Columns");
-        
-        
 
         for (int i = 1; i < costList.size(); i++) {
 
             double[] costs = (double[]) costList.get(i);
-            
             int[] cells = new int[9];
             if (costs[0] != (int) headerInfo.get("NoData")) {
 
@@ -1281,7 +1212,5 @@ public class costSolver {
         return cellMatrix;
 
     }
-    
-    
     
 }

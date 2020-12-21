@@ -3,6 +3,7 @@ package cost_MAP;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.logging.Level;
@@ -28,7 +29,6 @@ import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 
-
 public class costMAP extends Application {
 
     @Override
@@ -46,8 +46,6 @@ public class costMAP extends Application {
         //Images
         Image img1 = new Image("file:Datasets/SimCCS_logo.png");
         ImageView imgView1 = new ImageView(img1);
-        Image img2 = new Image("file:Outputs/Cost.bmp");
-        ImageView imgView2 = new ImageView(img2);
 
         //Set up
         BorderPane pane = new BorderPane();
@@ -67,7 +65,7 @@ public class costMAP extends Application {
 
         //Buttons
         Button runButton = new Button("Run");
-        Button canButton = new Button("Show Surface");
+        Button canButton = new Button("Cancel");
 
         //Importing info
         CheckBox chkDefaultLandcover = new CheckBox("Land Cover");
@@ -123,7 +121,6 @@ public class costMAP extends Application {
                 buttonArea,
                 new Separator(),
                 chkCustom
-                
         );
 
         pane.getStylesheets().add("styles.css");
@@ -139,12 +136,10 @@ public class costMAP extends Application {
         pane.setTop(topContainer);
         buttonArea.setAlignment(Pos.BOTTOM_LEFT);
         mapBox.setAlignment(Pos.CENTER);
-//        
 
         pane.setLeft(toolBar1);
         pane.setCenter(mapBox);
-        
-        
+
         runButton.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
@@ -191,10 +186,10 @@ public class costMAP extends Application {
                         System.out.println("Importing Pipeline Data ... ");
                         costList = costs.addPipelineCorridor(costList,headerInfo, "Datasets/ASCII/pipelines.asc");
                     }
-                    BufferedWriter outputConstruction = new BufferedWriter(new FileWriter("Outputs/Construction Costs.txt"));
+                    BufferedWriter outputConstruction = new BufferedWriter(new FileWriter("Outputs\\Construction Costs.txt"));
                     
                     System.out.println("Calculating Distance ...");
-                    costList = costs.solveDistance(headerInfo, distMult, costList, "Datasets/ASCII/landcover.asc", true);
+                    costList = costs.solveDistance(headerInfo, distMult, costList, "Datasets/ASCII/landcover.asc");
                     System.out.println("Writing to files...");
                     costs.writeTxt(costList, headerInfo, outputConstruction);
                     System.out.println("Construction calculations are complete.");
@@ -203,16 +198,15 @@ public class costMAP extends Application {
                         System.out.println("Importing Landcover Data for ROWS ... ");
                         rowList =  costs.landcoverInput(isSelectedPop, "Datasets/ASCII/landcover.asc");
                     }
-                    if (chkDefaultPipelines.isSelected()) {
-                        System.out.println("Importing Pipeline Data ... ");
-                        rowList = costs.addPipelineCorridor(rowList,headerInfo, "Datasets/ASCII/pipelines.asc");
-                    }
-                    rowList = costs.solveDistance(headerInfo, distMult, rowList, "Datasets/ASCII/landcover.asc", false);
-                    BufferedWriter outputROWS = new BufferedWriter(new FileWriter("Outputs/RightOfWay Costs.txt"));
+////                    if (chkDefaultPipelines.isSelected()) {
+////                        System.out.println("Importing Pipeline Data ... ");
+////                        rowList = costs.addPipelineCorridor(rowList,headerInfo, "Datasets/ASCII/pipelines.asc");
+////                    }
+                    rowList = costs.solveDistance(headerInfo, distMult, rowList, "Datasets/ASCII/landcover.asc");
+                    BufferedWriter outputROWS = new BufferedWriter(new FileWriter("Outputs\\RightOfWay Costs.txt"));
                     costs.writeTxt(rowList, headerInfo, outputROWS);
 //                    
                     System.out.println("The Rights of way calculations are complete. ");
-                    
                     
                 } catch (IOException ex) {
                     Logger.getLogger(costMAP.class.getName()).log(Level.SEVERE, null, ex);
@@ -221,17 +215,14 @@ public class costMAP extends Application {
                 }
                 } 
                 
+            
+
         });
-        
 
         canButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
                 //Just making sure stuff is working witht his print
-                imgView1.setImage(null);
-                imgView2.setPreserveRatio(true);
-                imgView2.setFitHeight(475);
-                mapBox.getChildren().add(imgView2);
                 System.out.println("Thank you for canceling. I can rest now.");
 
                 return;
