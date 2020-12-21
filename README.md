@@ -1,2 +1,2 @@
 # costmap
-A tool for creating Cost Netowks and Surfaces for SimCCS
+A tool for creating Cost Networks and Surfaces for SimCCS
