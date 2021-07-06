@@ -43,6 +43,9 @@ public class costMAP extends Application {
 
     public Scene buildGUI(Stage stage) {
 
+        // OS seperator
+        String sep = System.getProperty("file.separator");
+
         //Images
         Image img1 = new Image("file:Datasets/SimCCS_logo.png");
         ImageView imgView1 = new ImageView(img1);
@@ -186,7 +189,7 @@ public class costMAP extends Application {
                         System.out.println("Importing Pipeline Data ... ");
                         costList = costs.addPipelineCorridor(costList,headerInfo, "Datasets/ASCII/pipelines.asc");
                     }
-                    BufferedWriter outputConstruction = new BufferedWriter(new FileWriter("Outputs\\Construction Costs.txt"));
+                    BufferedWriter outputConstruction = new BufferedWriter(new FileWriter("Outputs" + sep + "Construction Costs.txt"));
                     
                     System.out.println("Calculating Distance ...");
                     costList = costs.solveDistance(headerInfo, distMult, costList, "Datasets/ASCII/landcover.asc");
@@ -203,7 +206,7 @@ public class costMAP extends Application {
 ////                        rowList = costs.addPipelineCorridor(rowList,headerInfo, "Datasets/ASCII/pipelines.asc");
 ////                    }
                     rowList = costs.solveDistance(headerInfo, distMult, rowList, "Datasets/ASCII/landcover.asc");
-                    BufferedWriter outputROWS = new BufferedWriter(new FileWriter("Outputs\\RightOfWay Costs.txt"));
+                    BufferedWriter outputROWS = new BufferedWriter(new FileWriter("Outputs" + sep + "RightOfWay Costs.txt"));
                     costs.writeTxt(rowList, headerInfo, outputROWS);
 //                    
                     System.out.println("The Rights of way calculations are complete. ");
@@ -222,8 +225,8 @@ public class costMAP extends Application {
         canButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                //Just making sure stuff is working witht his print
-                System.out.println("Thank you for canceling. I can rest now.");
+                //Just making sure stuff is working with this print
+                System.out.println("Thank you for cancelling. I can rest now.");
 
                 return;
             }
