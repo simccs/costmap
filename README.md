@@ -1,5 +1,7 @@
 # CostMAP
 
+[![Java CI with Gradle](https://github.com/daniellivingston/costmap/actions/workflows/gradle.yml/badge.svg)](https://github.com/daniellivingston/costmap/actions/workflows/gradle.yml)
+
 A tool for creating Cost Networks and Surfaces for SimCCS.
 
 ## Running CostMAP with Gradle
