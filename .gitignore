@@ -29,3 +29,8 @@ build
 
 # Ignore Gradle project-specific cache directory
 .gradle
+
+# Data and output
+Datasets/
+Outputs/*.txt
+compareData/
