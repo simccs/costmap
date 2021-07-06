@@ -25,3 +25,6 @@ hs_err_pid*
 bin
 build
 .DS_Store
+
+# Ignore Gradle project-specific cache directory
+.gradle
