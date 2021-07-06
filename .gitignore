@@ -12,6 +12,7 @@
 .classpath
 .project
 .settings
+*.swp
 
 # Gradle
 .gradle/
